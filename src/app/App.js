@@ -1,15 +1,19 @@
 
-import Renderer from './renderer.js'
+import Renderer from './Renderer.js'
 import EventEmitter from "eventemitter3"
 import '../style/app.scss';
+import Props from "./Props";
 
-class App {
+class App extends EventEmitter {
     constructor() {
-
+        super()
         const canvas = document.getElementById('canvas')
 
+        this.props = new Props();
+
         this.renderer = new Renderer({
-            canvas: canvas
+            canvas: canvas,
+            props: this.props
         })
 
         this.attachListeners()

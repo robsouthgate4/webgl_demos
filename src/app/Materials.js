@@ -7,13 +7,11 @@ export default class Materials extends EventEmitter {
         return new THREE.MeshBasicMaterial( {color: color} );
     }
 
-    static CreateWireframeMaterial(color = 0xffffff, lineWidth = 1) {
-        return new THREE.LineBasicMaterial( {
-            color: color,
-            linewidth: lineWidth,
-            linecap: 'round', //ignored by WebGLRenderer
-            linejoin:  'round' //ignored by WebGLRenderer
-        } );
+    static CreateWireframeMaterial(color = [255, 255, 255], lineWidth = 1) {
+        return new THREE.MeshBasicMaterial({
+            color: new THREE.Color(`rgb(${color[0]},${color[1]},${color[2]})`),
+            wireframe: true
+        });
     }
 
 }

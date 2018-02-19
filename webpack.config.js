@@ -6,8 +6,9 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 require('dotenv').config()
 
 const ENV = process.env.APP_ENV;
+
 const isTest = ENV === 'test'
-const isProd = ENV === 'prod';
+const isProd = ENV === 'prod'
 
 module.exports = {
     entry: './src/app/index.js',
