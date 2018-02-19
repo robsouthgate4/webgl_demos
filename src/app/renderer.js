@@ -6,7 +6,6 @@ class Renderer extends EventEmitter{
     constructor({canvas}) {
         super();
         this.canvas = canvas
-        console.log(canvas)
     }
 
     start() {
@@ -22,7 +21,15 @@ class Renderer extends EventEmitter{
         document.body.appendChild( this.renderer.domElement );
 
         this.draw();
+    }
 
+    refreshSize() {
+
+        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize( window.innerWidth, window.innerHeight );
+
+        console.log("resize")
 
     }
 
