@@ -20,11 +20,17 @@
     "css-loader": "^0.28.9",
     "dotenv": "^5.0.0",
     "eventemitter3": "^3.0.0",
+    "file-loader": "^1.1.7",
+    "glsl-easings": "^1.0.0",
+    "glslify": "^6.1.0",
+    "glslify-live": "^2.1.1",
     "html-webpack-plugin": "^2.30.1",
     "jshint": "^2.9.5",
     "jshint-loader": "^0.8.4",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
+    "shader-reload": "^2.0.1",
+    "shader-reload-cli": "^1.0.0",
     "style-loader": "^0.20.1",
     "three": "^0.89.0",
     "uglifyjs-webpack-plugin": "^1.1.8",
@@ -33,7 +39,10 @@
   },
   "dependencies": {
     "controlkit": "^0.1.9",
+    "glslify-loader": "^1.0.2",
     "lodash": "^4.17.5",
+    "raw-loader": "^0.5.1",
+    "soundcloud": "^3.3.0",
     "three-orbit-controls": "^82.1.0",
     "three-trackballcontrols": "0.0.7"
   }

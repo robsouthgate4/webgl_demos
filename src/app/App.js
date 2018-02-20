@@ -1,4 +1,3 @@
-
 import Renderer from './Renderer.js'
 import EventEmitter from "eventemitter3"
 import '../style/app.scss';
