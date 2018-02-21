@@ -84,7 +84,7 @@ void main() {
 //    vec3 c = voronoi( 8.0*(vUv*vec2(20.)) );
 //    vec3 col = mix( vec3(0.0), addedLights.rgb, smoothstep( 0.35, (0.35), c.x ) );
 
-    vec4 colorWithLight = mix(vec4(color.x, color.y, color.z, 1.0), addedLights, addedLights);
+    vec4 colorWithLight = mix(vec4(color.x, color.x, color.z, 1.0), addedLights, addedLights);
 
     gl_FragColor = colorWithLight;
 

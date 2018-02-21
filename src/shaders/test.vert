@@ -18,4 +18,6 @@ void main() {
     gl_Position =  projectionMatrix *
                     modelViewMatrix *
                     vec4(position * (frequency * 0.01) * easing,1.0);
+
+
 }

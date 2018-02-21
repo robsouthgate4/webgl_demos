@@ -33,9 +33,11 @@
     "shader-reload-cli": "^1.0.0",
     "style-loader": "^0.20.1",
     "three": "^0.89.0",
+    "three-glslify": "^2.0.2",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.11.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack-dev-server": "^2.11.1",
+    "xtend": "^4.0.1"
   },
   "dependencies": {
     "controlkit": "^0.1.9",

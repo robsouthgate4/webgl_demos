@@ -3,6 +3,7 @@ import EventEmitter from "eventemitter3"
 const OrbitControls = require('three-orbit-controls')(THREE)
 const TrackballControls = require('three-trackballcontrols')
 
+
 import Geometries from "./Geometries"
 import Materials from "./Materials"
 import ControlKitUi from "./Utils/ControlKitUi"
@@ -10,8 +11,21 @@ import bonoboMp3 from '../tracks/bonobo-kerala.mp3'
 import AudioAnalyser from "./AudioAnalyser"
 import Helpers from './Utils/Helpers'
 
-import frag from '../shaders/test.frag'
-import vert from '../shaders/test.vert'
+// import frag from '../shaders/test.frag'
+// import vert from '../shaders/test.vert'
+
+
+import shader from '../shaders/test.shader'
+
+console.log(shader)
+
+shader.on('change', () => {
+    // New source
+    console.log('Shader updated:', shader.vertex, shader.fragment);
+});
+
+
+
 
 class Renderer extends EventEmitter{
 
@@ -91,7 +105,7 @@ class Renderer extends EventEmitter{
 
         this.sphereGeom = Geometries.CreateSphere(7)
 
-        this.sphereMat = Materials.CreateShaderMaterial({frag, vert})
+        this.sphereMat = Materials.CreateShaderMaterial({frag: shader.fragment, vert: shader.vertex})
 
         for (let i = 0; i < this.numOfSpheresRow; i++) {
             for (let j = 0; j < this.numOfSpheresCol; j++) {

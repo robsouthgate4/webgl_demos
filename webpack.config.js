@@ -5,6 +5,10 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 
 module.exports = {
+    context: __dirname,
+    node: {
+        __filename: true
+    },
     entry: './src/app/index.js',
     devtool: 'inline-source-map',
     devServer: {
@@ -45,8 +49,8 @@ module.exports = {
                     /node_modules/
                 ]
             },
-            { test: /\.(glsl|frag|vert)$/, loader: 'raw-loader', exclude: /node_modules/ },
-            { test: /\.(glsl|frag|vert)$/, loader: 'glslify', exclude: /node_modules/ }
+            // { test: /\.(glsl|frag|vert)$/, loader: 'raw-loader', exclude: /node_modules/ },
+            // { test: /\.(glsl|frag|vert)$/, loader: 'glslify', exclude: /node_modules/ }
         ]
     }
 };
