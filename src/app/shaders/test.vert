@@ -15,7 +15,7 @@ void main() {
 
     float easing = ease(frequency * 0.03);
 
-    gl_Position =  projectionMatrix *
+    gl_Position =   projectionMatrix *
                     modelViewMatrix *
                     vec4(newPosition * (frequency * 0.01) * easing, 1.0);
 

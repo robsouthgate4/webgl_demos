@@ -9,13 +9,14 @@ const glslify = require('glslify')
 const fragmentShader = glslify('./shaders/test.frag')
 const vertexShader = glslify('./shaders/test.vert')
 
-
 if (module.hot) {
     module.hot.accept(err => {
         if (err) throw errr
     })
+    // List all shaders that need hot HMR applied here
     hmr.update(cache, {
-        vertexShader, fragmentShader
+        vertexShader,
+        fragmentShader
     })
 }
 

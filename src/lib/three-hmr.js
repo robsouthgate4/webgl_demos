@@ -1,8 +1,3 @@
-/*
-  A babel plugin should help us inline
-  this file into our bundle, so that users
-  do not need to manually interact with it.
- */
 
 var window = require('global/window')
 
