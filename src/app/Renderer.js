@@ -8,6 +8,7 @@ import Materials from "./Materials"
 import ControlKitUi from "./Utils/ControlKitUi"
 import bonoboMp3 from '../tracks/bonobo-kerala.mp3'
 import AudioAnalyser from "./AudioAnalyser"
+import Helpers from './Utils/Helpers'
 
 import frag from '../shaders/test.frag'
 import vert from '../shaders/test.vert'
@@ -34,19 +35,43 @@ class Renderer extends EventEmitter{
             fftSize: 512
         })
 
-        this.audioListener = this.audioAnalysis.getListener;
-
-        this.scene = new THREE.Scene();
-
-        this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        this.audioListener = this.audioAnalysis.getListener
+        this.scene = new THREE.Scene()
+        this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 35000 )
         this.camera.add(this.audioListener)
 
 
-        this.audioAnalysis.loadTrack().then(buffer => {
-            this.audioAnalysis.playTrack()
-            this.draw();
-        })
+        /*
+        Add lights
+         */
 
+        this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 )
+        this.scene.add(this.directionalLight)
+
+        this.light1 = new THREE.PointLight(0x000000)
+        this.light1.position.set( 0, 180, 0 )
+        this.scene.add(this.light1)
+
+        this.light2 = new THREE.PointLight(0xffffff)
+        this.light2.position.set( 0 ,250, 0 );
+        this.scene.add(this.light2);
+
+        // Helpers.addLightSphere({
+        //     light: this.light2,
+        //     color: 0x00ff00
+        // })
+        //
+        // Helpers.addLightSphere({
+        //     light: this.light1,
+        //     color: 0xff0000
+        // })
+
+
+        this.audioAnalysis.loadTrack()
+            .then(buffer => {
+                this.audioAnalysis.playTrack()
+                this.draw()
+            })
 
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas
@@ -55,11 +80,6 @@ class Renderer extends EventEmitter{
 
         this.renderer.setSize( window.innerWidth, window.innerHeight );
         document.body.appendChild( this.renderer.domElement );
-
-        // this.controls.addEventListener('change', () => {
-        //     const pos = new THREE.Vector3();
-        //     pos.copy( this.controls.object.position );
-        // })
 
         this.camera.position.copy(
             new THREE.Vector3(
@@ -123,9 +143,17 @@ class Renderer extends EventEmitter{
 
         const animate = () => {
 
+            const timer = Date.now() * 0.00050;
+
+            this.light1.position.x = Math.cos( timer ) * 250;
+            this.light1.position.z = Math.sin( timer ) * 250;
+            this.light2.position.y = Math.cos( timer * 1.25 ) * 250;
+            this.light2.position.z = Math.sin( timer * 1.25 ) * 250;
+
             if (this.sphereGeom) {
                 this.sphereMat.uniforms.frequency.value = this.audioAnalysis.getFrequency
                 this.sphereMat.uniforms.color.value = new THREE.Color(`rgb(${this.props.color[0]}, ${this.props.color[1]}, ${this.props.color[2]})`)
+                this.sphereMat.uniforms.diffuse.value = new THREE.Color(`rgb(${this.props.color[0]}, ${this.props.color[1]}, ${this.props.color[2]})`)
             }
             this.sphereMeshArr.forEach(sphere => {
                 sphere.rotation.x += this.audioAnalysis.getFrequency * 0.005;

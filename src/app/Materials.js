@@ -19,12 +19,19 @@ export default class Materials extends EventEmitter {
 
         return new THREE.ShaderMaterial(
             {
-                uniforms: {
-                    time: { value: 1.0 },
-                    resolution: { value: new THREE.Vector2() },
-                    color: {value: new THREE.Color()},
-                    frequency: {value: 0.0, type: 'f'}
-                },
+                uniforms: THREE.UniformsUtils.merge(
+                    [THREE.UniformsLib['lights'],
+                        {
+                            diffuse: {type: 'c', value: new THREE.Color()},
+                            amount: {type: 'f', value: 20.0},
+                            time: { value: 1.0 },
+                            resolution: { value: new THREE.Vector2() },
+                            color: {value: new THREE.Color()},
+                            frequency: {value: 0.0, type: 'f'}
+                        }
+                    ]
+                ),
+                lights: true,
                 vertexShader: vert,
                 fragmentShader: frag
             }

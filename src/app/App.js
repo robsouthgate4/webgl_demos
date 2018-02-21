@@ -1,7 +1,7 @@
 import Renderer from './Renderer.js'
 import EventEmitter from "eventemitter3"
-import '../style/app.scss';
-import Props from "./Props";
+import '../style/app.scss'
+import Props from "./Props"
 
 class App extends EventEmitter {
     constructor() {
