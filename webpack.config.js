@@ -1,8 +1,8 @@
-const path = require('path');
+const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-
 
 module.exports = {
     context: __dirname,
@@ -13,13 +13,19 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './src/public',
-        port: 9000
+        port: 9000,
+        watchOptions: {
+            ignored: [
+                path.resolve(__dirname, 'src/shaders/**/*.vert'),
+                path.resolve(__dirname, 'src/shaders/**/*.frag')
+            ]
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: __dirname + "/src/public/index.html",
             inject: 'body'
-        }),
+        })
     ],
     output: {
         filename: '[name].bundle.js',
@@ -49,8 +55,15 @@ module.exports = {
                     /node_modules/
                 ]
             },
-            // { test: /\.(glsl|frag|vert)$/, loader: 'raw-loader', exclude: /node_modules/ },
-            // { test: /\.(glsl|frag|vert)$/, loader: 'glslify', exclude: /node_modules/ }
+            {
+                test: /node_modules/,
+                loader: 'ify-loader'
+            },
+            {
+                enforce: 'post',
+                test: /\.js$/,
+                loader: 'ify-loader'
+            }
         ]
     }
 };

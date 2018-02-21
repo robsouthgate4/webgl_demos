@@ -11,21 +11,6 @@ import bonoboMp3 from '../tracks/bonobo-kerala.mp3'
 import AudioAnalyser from "./AudioAnalyser"
 import Helpers from './Utils/Helpers'
 
-// import frag from '../shaders/test.frag'
-// import vert from '../shaders/test.vert'
-
-
-import shader from '../shaders/test.shader'
-
-console.log(shader)
-
-shader.on('change', () => {
-    // New source
-    console.log('Shader updated:', shader.vertex, shader.fragment);
-});
-
-
-
 
 class Renderer extends EventEmitter{
 
@@ -62,7 +47,7 @@ class Renderer extends EventEmitter{
         this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 )
         this.scene.add(this.directionalLight)
 
-        this.light1 = new THREE.PointLight(0x000000)
+        this.light1 = new THREE.PointLight(0xffffff)
         this.light1.position.set( 0, 180, 0 )
         this.scene.add(this.light1)
 
@@ -70,16 +55,15 @@ class Renderer extends EventEmitter{
         this.light2.position.set( 0 ,250, 0 );
         this.scene.add(this.light2);
 
-        // Helpers.addLightSphere({
-        //     light: this.light2,
-        //     color: 0x00ff00
-        // })
-        //
-        // Helpers.addLightSphere({
-        //     light: this.light1,
-        //     color: 0xff0000
-        // })
+        Helpers.addLightSphere({
+            light: this.light2,
+            color: 0x00ff00
+        })
 
+        Helpers.addLightSphere({
+            light: this.light1,
+            color: 0xff0000
+        })
 
         this.audioAnalysis.loadTrack()
             .then(buffer => {
@@ -105,7 +89,7 @@ class Renderer extends EventEmitter{
 
         this.sphereGeom = Geometries.CreateSphere(7)
 
-        this.sphereMat = Materials.CreateShaderMaterial({frag: shader.fragment, vert: shader.vertex})
+        this.sphereMat = Materials.CreateShaderMaterial()
 
         for (let i = 0; i < this.numOfSpheresRow; i++) {
             for (let j = 0; j < this.numOfSpheresCol; j++) {
@@ -115,7 +99,7 @@ class Renderer extends EventEmitter{
                     this.sphereMat
                 )
 
-                sphereMesh.position.x = (this.xDistance * i) + this.xOffset;
+                sphereMesh.position.x = (this.xDistance * i) + this.xOffset
                 sphereMesh.position.z = (this.zDistance * j)
 
                 this.sphereMeshArr.push(sphereMesh)
@@ -157,11 +141,11 @@ class Renderer extends EventEmitter{
 
         const animate = () => {
 
-            const timer = Date.now() * 0.00050;
+            const timer = Date.now() * 0.00050
 
-            this.light1.position.x = Math.cos( timer ) * 250;
-            this.light1.position.z = Math.sin( timer ) * 250;
-            this.light2.position.y = Math.cos( timer * 1.25 ) * 250;
+            this.light1.position.x = Math.cos(  timer ) * 250
+            this.light1.position.z = Math.sin( timer ) * 250
+            this.light2.position.y = Math.cos( timer * 1.25 ) * 250
             this.light2.position.z = Math.sin( timer * 1.25 ) * 250;
 
             if (this.sphereGeom) {

@@ -4,7 +4,6 @@ varying vec3 vNormal;
 uniform vec3 color;
 uniform float frequency;
 
-
 struct PointLight {
     vec3 position;
     vec3 color;
@@ -18,14 +17,12 @@ struct DirectionalLight {
 uniform PointLight pointLights[ NUM_POINT_LIGHTS ];
 uniform DirectionalLight directionalLights[ NUM_DIR_LIGHTS ];
 
-vec2 hash2( vec2 p )
-{
+vec2 hash2( vec2 p ){
     // procedural white noise
   return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);
 }
 
-vec3 voronoi( in vec2 x )
-{
+vec3 voronoi( in vec2 x ){
     vec2 n = floor(x);
     vec2 f = fract(x);
 
@@ -70,21 +67,21 @@ vec3 voronoi( in vec2 x )
 }
 
 void main() {
+
     vec4 addedLights = vec4(0.0,0.0,0.0, 1.0);
     vec3 newColour = color;
 
     newColour.b *= frequency;
-
 
     for (int i = 0; i < NUM_POINT_LIGHTS; i++ ) {
         vec3 lightDirection = normalize(vPos - pointLights[i].position);
         addedLights.rgb += clamp(dot(-lightDirection, vNormal), 0.0, 1.0) * pointLights[i].color;
     }
 
-//    vec3 c = voronoi( 8.0*(vUv*vec2(20.)) );
-//    vec3 col = mix( vec3(0.0), addedLights.rgb, smoothstep( 0.35, (0.35), c.x ) );
+    vec3 c = voronoi( 8.0*(vUv*vec2(20.)) );
+    vec3 col = mix( vec3(0.0), addedLights.rgb, smoothstep( 0.35, (0.35), c.x ) );
 
-    vec4 colorWithLight = mix(vec4(color.x, color.x, color.z, 1.0), addedLights, addedLights);
+    vec4 colorWithLight = mix(vec4(color.x, color.y, color.z, 1.0), addedLights * 0.5, addedLights);
 
     gl_FragColor = colorWithLight;
 

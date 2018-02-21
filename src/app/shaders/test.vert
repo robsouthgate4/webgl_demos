@@ -14,10 +14,10 @@ void main() {
     vPos = (modelMatrix * vec4(position, 1.0 )).xyz;
 
     float easing = ease(frequency * 0.03);
-    newPosition.z *= (frequency * 0.03);
+
     gl_Position =  projectionMatrix *
                     modelViewMatrix *
-                    vec4(position * (frequency * 0.01) * easing,1.0);
+                    vec4(newPosition * (frequency * 0.01) * easing, 1.0);
 
 
 }

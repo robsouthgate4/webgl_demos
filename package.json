@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --history-api-fallback --inline --progress --open"
+    "start": "webpack-dev-server --history-api-fallback --inline --hot --progress --open"
   },
   "keywords": [],
   "author": "",
@@ -41,11 +41,19 @@
   },
   "dependencies": {
     "controlkit": "^0.1.9",
+    "global": "^4.3.2",
     "glslify-loader": "^1.0.2",
+    "ify-loader": "^1.1.0",
     "lodash": "^4.17.5",
     "raw-loader": "^0.5.1",
     "soundcloud": "^3.3.0",
     "three-orbit-controls": "^82.1.0",
-    "three-trackballcontrols": "0.0.7"
+    "three-trackballcontrols": "0.0.7",
+    "transform-loader": "^0.2.4"
+  },
+  "browserify": {
+    "transform": [
+      "glslify"
+    ]
   }
 }

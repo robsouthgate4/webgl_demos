@@ -1,6 +1,23 @@
 import EventEmitter from "eventemitter3"
 import * as THREE from "three"
-import glslify from "glslify"
+
+const hmr = require('../lib/three-hmr')
+const cache = hmr.cache(__filename)
+
+const glslify = require('glslify')
+
+const fragmentShader = glslify('./shaders/test.frag')
+const vertexShader = glslify('./shaders/test.vert')
+
+
+if (module.hot) {
+    module.hot.accept(err => {
+        if (err) throw errr
+    })
+    hmr.update(cache, {
+        vertexShader, fragmentShader
+    })
+}
 
 export default class Materials extends EventEmitter {
 
@@ -15,9 +32,9 @@ export default class Materials extends EventEmitter {
         });
     }
 
-    static CreateShaderMaterial({frag, vert}) {
+    static CreateShaderMaterial() {
 
-        return new THREE.ShaderMaterial(
+        const material = new THREE.ShaderMaterial(
             {
                 uniforms: THREE.UniformsUtils.merge(
                     [THREE.UniformsLib['lights'],
@@ -32,10 +49,12 @@ export default class Materials extends EventEmitter {
                     ]
                 ),
                 lights: true,
-                vertexShader: vert,
-                fragmentShader: frag
+                vertexShader: vertexShader,
+                fragmentShader: fragmentShader
             }
         )
+        hmr.enable(cache, material)
+        return material
 
     }
 
