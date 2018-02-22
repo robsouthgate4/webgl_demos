@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --history-api-fallback --inline --hot --progress --open"
+    "start": "webpack-dev-server --history-api-fallback --inline --hot --open"
   },
   "keywords": [],
   "author": "",
