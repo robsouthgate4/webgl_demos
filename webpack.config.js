@@ -13,13 +13,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './src/public',
-        port: 9000,
-        watchOptions: {
-            ignored: [
-                path.resolve(__dirname, 'src/shaders/**/*.vert'),
-                path.resolve(__dirname, 'src/shaders/**/*.frag')
-            ]
-        }
+        port: 9000
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -30,7 +24,7 @@ module.exports = {
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/'
+        publicPath: ''
     },
     module: {
         rules: [

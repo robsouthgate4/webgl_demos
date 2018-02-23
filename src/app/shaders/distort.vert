@@ -30,8 +30,7 @@ vec3 fade(vec3 t) {
 }
 
 // Classic Perlin noise
-float cnoise(vec3 P)
-{
+float cnoise(vec3 P) {
   vec3 Pi0 = floor(P); // Integer part for indexing
   vec3 Pi1 = Pi0 + vec3(1.0); // Integer part + 1
   Pi0 = mod289(Pi0);
@@ -165,10 +164,10 @@ void main() {
 
     float displacement = 1.0;
     /* calm */
-    displacement += wind * pnoise( 0.15 * position + vec3( 0.2 * (time / 4.) ), vec3( 50.0 ) );
+    displacement += wind * pnoise( 0.15 * position + vec3( 0.2 * (time / 2.) ), vec3( 50.0 ) );
 
     /* madness */
-    //displacement += wind * pnoise( 10.15 * position + vec3( 0.2 * (time / 4.) ), vec3( 50.0 ) );
+    //displacement += wind * pnoise( 10.15 * position + vec3( 0.2 * (time / 4.) ), vec3( 50.0 ) ) * 2.0;
 
     distFromCenter = length(position);
 
