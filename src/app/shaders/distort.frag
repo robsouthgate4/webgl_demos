@@ -15,7 +15,11 @@ void main() {
   vec3 color1 = color;
   vec2 direction = vUv - 0.5;
 
+
+/* v1 */
   //color1 -= length(direction) - 0.9;
+
+/* v2  */
 
   color1 -= length(direction) * 0.9;
 

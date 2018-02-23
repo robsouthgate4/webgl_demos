@@ -164,8 +164,12 @@ void main() {
     vec3 offset = position;
 
     float displacement = 1.0;
-
+    /* calm */
     displacement += wind * pnoise( 0.15 * position + vec3( 0.2 * (time / 4.) ), vec3( 50.0 ) );
+
+    /* madness */
+    //displacement += wind * pnoise( 10.15 * position + vec3( 0.2 * (time / 4.) ), vec3( 50.0 ) );
+
     distFromCenter = length(position);
 
     vec3 newPosition = position + normal * vec3( displacement );
