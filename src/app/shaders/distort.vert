@@ -161,12 +161,12 @@ void main() {
 
     vec3 offset = position;
 
-    float displacement = 1.0;
+    float displacement = 0.2;
     /* calm */
-    displacement += wind * pnoise( 0.15 * position + vec3( 0.2 * (time / 4.) ), vec3( 50.0 ) );
+    //displacement += wind * pnoise( 0.15 * position + vec3( 0.2 * (time / 20.) ), vec3( 50.0 ) );
 
     /* madness */
-    //displacement += wind * pnoise( 10.15 * position + vec3( 0.2 * (time / 4.) ), vec3( 50.0 ) ) * 2.0;
+    displacement += wind * pnoise( 5.15 * position + vec3( 0.2 * (time /20.) ), vec3( 50.0 ) ) * 1.0;
 
     //vec3 image = texture2D(textureSampler, vUv).rgb;
 
