@@ -1,4 +1,4 @@
-//import RendererDistortion from './RendererDistortion'
+import RendererDistortion from './RendererDistortion'
 import Renderer from './Renderer'
 import EventEmitter from "eventemitter3"
 import '../style/app.scss'
@@ -11,7 +11,7 @@ class App extends EventEmitter {
 
         this.props = new Props();
 
-        this.renderer = new Renderer({
+        this.renderer = new RendererDistortion({
             canvas: canvas,
             props: this.props
         })
