@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
+    "build-demo": "webpack --env.demo true",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --history-api-fallback --inline --hot --open"
   },
@@ -21,6 +22,7 @@
     "dotenv": "^5.0.0",
     "eventemitter3": "^3.0.0",
     "file-loader": "^1.1.7",
+    "git-revision-webpack-plugin": "^2.5.1",
     "glsl-easings": "^1.0.0",
     "glslify": "^6.1.0",
     "glslify-live": "^2.1.1",

@@ -17,13 +17,13 @@ void main() {
 
 
 /* v1 */
-  color1 -= length(direction) - 0.9;
+  //color1 -= length(direction) - 0.9;
 
 /* v2  */
   color1 -= length(direction) * 0.9;
 
   //vec3 image = texture2D(textureSampler, vUv).rgb;
 
-  gl_FragColor = vec4(color1, 1.0);
+  gl_FragColor = vec4(color1, 0.8);
 
 }
