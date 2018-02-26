@@ -47,23 +47,27 @@ class Renderer extends EventEmitter{
         this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 )
         this.scene.add(this.directionalLight)
 
-        this.light1 = new THREE.PointLight(0xffffff)
+        this.light1 = new THREE.PointLight(0x000000)
         this.light1.position.set( 0, 180, 0 )
         this.scene.add(this.light1)
 
-        this.light2 = new THREE.PointLight(0xffffff)
+        this.light2 = new THREE.PointLight(0x000000)
         this.light2.position.set( 0 ,250, 0 );
         this.scene.add(this.light2);
 
-        Helpers.addLightSphere({
-            light: this.light2,
-            color: 0x00ff00
-        })
+        /*
+        Add light spheres for debugging point light position
+         */
 
-        Helpers.addLightSphere({
-            light: this.light1,
-            color: 0xff0000
-        })
+        // Helpers.addLightSphere({
+        //     light: this.light2,
+        //     color: 0x00ff00
+        // })
+        //
+        // Helpers.addLightSphere({
+        //     light: this.light1,
+        //     color: 0xff0000
+        // })
 
         this.audioAnalysis.loadTrack()
             .then(buffer => {

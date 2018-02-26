@@ -10,10 +10,12 @@ export default class ControlKitUi extends EventEmitter{
         this.controlKit = new ControlKit();
 
         this.controlKit
-            .addPanel()
-            .addGroup()
-            .addSubGroup()
-            .addColor(this.props,'color',{colorMode:'rgb', onChange: this.onChange.bind(this)})
+            .addPanel({label: 'Settings', align: 'right'})
+                .addGroup()
+                    .addSubGroup()
+                    .addSlider(this.props,'wind','windRange')
+                    .addColor(this.props,'color',{colorMode:'rgb'})
+                        .addFunctionPlotter(this.props,'func');
 
     }
 

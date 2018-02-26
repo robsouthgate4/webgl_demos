@@ -1,4 +1,5 @@
-import Renderer from './Renderer.js'
+//import RendererDistortion from './RendererDistortion'
+import Renderer from './Renderer'
 import EventEmitter from "eventemitter3"
 import '../style/app.scss'
 import Props from "./Props"
