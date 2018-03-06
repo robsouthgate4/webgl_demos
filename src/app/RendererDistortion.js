@@ -96,6 +96,7 @@ export default class RendererDistortion extends EventEmitter{
             if (this.planeGeom) {
                 this.planeMat.uniforms.time.value = time;
                 this.planeMat.uniforms.wind.value = this.props.wind
+                this.planeMat.uniforms.speed.value = this.props.speed
                 this.planeMat.uniforms.color.value = new THREE.Color(`rgb(${this.props.color[0]}, ${this.props.color[1]}, ${this.props.color[2]})`)
                 this.planeMat.uniforms.diffuse.value = new THREE.Color(`rgb(${this.props.color[0]}, ${this.props.color[1]}, ${this.props.color[2]})`)
             }
