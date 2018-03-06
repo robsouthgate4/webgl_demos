@@ -5,8 +5,10 @@ export default class Props extends EventEmitter{
         super()
         this.color = [2, 224, 43]
         this.rotationSpeed = 0.005
-        this.wind = 11
-        this.windRange = [0.0, 11.0]
+        this.wind = 0
+        this.speed = 0
+        this.speedRange = [0.0, 20.0]
+        this.windRange = [0.0, 18.0]
         this.valueA = 0.25
         this.valueB = 1.25
         this.func = (x,y) => {

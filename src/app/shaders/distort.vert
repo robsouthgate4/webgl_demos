@@ -4,6 +4,7 @@ varying float distFromCenter;
 
 uniform float time;
 uniform float wind;
+uniform float speed;
 uniform sampler2D textureSampler;
 uniform float test;
 #define PI 3.14159265358979323846
@@ -163,10 +164,10 @@ void main() {
 
     float displacement = 0.2;
     /* calm */
-    //displacement += wind * pnoise( 0.15 * position + vec3( 0.2 * (time / 20.) ), vec3( 50.0 ) );
+    displacement += wind * pnoise( 0.15 * position + vec3( 0.2 * (time * (speed / 50.)) ), vec3( 50.0 ) );
 
     /* madness */
-    displacement += wind * pnoise( 5.15 * position + vec3( 0.2 * (time /20.) ), vec3( 50.0 ) ) * 1.0;
+    //displacement += wind * pnoise( 5.15 * position + vec3( 0.2 * (time /20.) ), vec3( 50.0 ) ) * 1.0;
 
     //vec3 image = texture2D(textureSampler, vUv).rgb;
 

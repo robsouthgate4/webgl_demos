@@ -52,6 +52,7 @@ export default class Materials extends EventEmitter {
                     diffuse: {type: 'c', value: new THREE.Color()},
                     amount: {type: 'f', value: 20.0},
                     time: { value: 1.0 },
+                    speed: {type: 'f', value: 10.0},
                     resolution: { value: new THREE.Vector2() },
                     color: {value: new THREE.Color()},
                     frequency: {value: 0.0, type: 'f'}

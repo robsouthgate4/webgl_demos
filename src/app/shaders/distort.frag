@@ -20,7 +20,7 @@ void main() {
   color1 -= length(direction) - 0.9;
 
 /* v2  */
-  //color1 -= length(direction) * 0.9;
+  color1 -= length(direction) * 0.9;
 
   //vec3 image = texture2D(textureSampler, vUv).rgb;
 
