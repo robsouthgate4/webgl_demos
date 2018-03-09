@@ -1,5 +1,5 @@
-//import RendererDistortion from './RendererDistortion'
-import Renderer from './Renderer'
+import RendererEgg from './RendererEgg'
+//import Renderer from './Renderer'
 import EventEmitter from "eventemitter3"
 import '../style/app.scss'
 import Props from "./Props"
@@ -11,7 +11,7 @@ class App extends EventEmitter {
 
         this.props = new Props();
 
-        this.renderer = new Renderer({
+        this.renderer = new RendererEgg ({
             canvas: canvas,
             props: this.props
         })

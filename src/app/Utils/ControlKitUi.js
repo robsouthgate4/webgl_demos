@@ -15,7 +15,7 @@ export default class ControlKitUi extends EventEmitter{
                     .addSubGroup()
                     .addSlider(this.props,'wind','windRange')
                     .addColor(this.props,'color',{colorMode:'rgb'})
-                        .addFunctionPlotter(this.props,'func');
+                    .addColor(this.props, 'color2', {colorMode: 'rgb'})
 
     }
 

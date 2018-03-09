@@ -6,11 +6,14 @@ const cache = hmr.cache(__filename);
 
 const glslify = require('glslify')
 
-const fragmentShader = glslify('./shaders/test.frag')
-const vertexShader = glslify('./shaders/test.vert')
+// const fragmentShader = glslify('./shaders/test.frag')
+// const vertexShader = glslify('./shaders/test.vert')
+//
+// const fragmentShaderDistort = glslify('./shaders/distort.frag')
+// const vertexShaderDistort = glslify('./shaders/distort.vert')
 
-const fragmentShaderDistort = glslify('./shaders/distort.frag')
-const vertexShaderDistort = glslify('./shaders/distort.vert')
+const fragmentShaderEgg = glslify('./shaders/egg.frag')
+const vertexShaderEgg = glslify('./shaders/egg.vert')
 
 if (module.hot) {
     module.hot.accept(err => {
@@ -18,8 +21,8 @@ if (module.hot) {
     })
 
     hmr.update(cache, {
-        vertexShader: vertexShaderDistort,
-        fragmentShader: fragmentShaderDistort
+        vertexShader: vertexShaderEgg,
+        fragmentShader: fragmentShaderEgg
     })
 }
 
@@ -38,6 +41,41 @@ export default class Materials extends EventEmitter {
             color: new THREE.Color(`rgb(${color[0]},${color[1]},${color[2]})`),
             wireframe: true
         });
+    }
+
+    static CreateEggMaterial() {
+
+        const texture = THREE.ImageUtils.loadTexture(img, undefined,);
+
+        const material = new THREE.ShaderMaterial(
+            {
+                uniforms:{
+                    wind: { type: 'f', value: 0.0 },
+                    textureSampler: { type: "t", value: texture },
+                    diffuse: {type: 'c', value: new THREE.Color()},
+                    amount: {type: 'f', value: 20.0},
+                    time: { value: 1.0 },
+                    resolution: { value: new THREE.Vector2() },
+                    color: {value: new THREE.Color()},
+                    color2: {value: new THREE.Color()},
+                    frequency: {value: 0.0, type: 'f'},
+                    mRefractionRatio: { type: "f", value: 1.02 },
+                    mFresnelBias: { type: "f", value: 0.1 },
+                    mFresnelPower: { type: "f", value: 2.0 },
+                    mFresnelScale: { type: "f", value: 1.0 },
+                    tCube: { type: "t", value: null }
+                },
+                transparent: true,
+                vertexShader: vertexShaderEgg,
+                fragmentShader: fragmentShaderEgg
+            }
+        )
+
+        material.side = THREE.DoubleSide;
+
+        hmr.enable(cache, material)
+        return material
+
     }
 
     static CreateDistortionMaterial() {

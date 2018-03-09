@@ -55,7 +55,7 @@ module.exports = env => {
                     }]
                 },
                 {
-                    test: /\.(ogg|mp3|jpe?g|png|gif|svg|wav|mpe?g)$/i,
+                    test: /\.(ogg|mp3|jpe?g|png|gif|obj|svg|wav|mpe?g)$/i,
                     loader: 'file-loader'
                 },
                 {
