@@ -63,28 +63,35 @@ export default class RendererEgg extends EventEmitter{
         this.gui = new ControlKitUi(this.props)
         this.gui.addListener("change", this.update.bind(this))
 
-        this.controls = new OrbitControls( this.camera )
+        if (this.props.orbitControls) {
+            this.controls = new OrbitControls( this.camera )
+        }
+
+        
 
         this.eggMaterial = Materials.CreateEggMaterial();
+
+        this.eggGroup = new THREE.Object3D()
+        this.eggMesh =  new THREE.Mesh();
 
 
         this.loadEgg()
             .then((object) => {
 
-                var group = new THREE.Object3D()
+                
 
                 object.traverse( (child) => {
                     if (child instanceof THREE.Mesh) {
                         //here in child the geometry and material are available
-                        var mesh = new THREE.Mesh( child.geometry, this.eggMaterial);
+                        this.eggMesh = new THREE.Mesh( child.geometry, this.eggMaterial);
                         //mesh.position.z = -50;
-                        group.add(mesh);
+                        this.eggGroup.add(this.eggMesh);
                     }
                 });
 
-                group.position.z = 0;
+                this.eggGroup.position.z = 0;
 
-                this.scene.add(group);
+                this.scene.add(this.eggGroup);
 
             })
 
@@ -116,12 +123,18 @@ export default class RendererEgg extends EventEmitter{
 
         let time = 0;
 
+        console.log(this.props)
+
         const animate = () => {
 
             const timer = Date.now() * 0.00050
 
             time += 1;
 
+            this.eggMesh.rotation.y += 0.01;
+
+            this.eggMaterial.uniforms.mouseX.value = this.props.mouseX;
+            this.eggMaterial.uniforms.mouseY.value = this.props.mouseY;
             this.eggMaterial.uniforms.time.value = time;
             this.eggMaterial.uniforms.wind.value = this.props.wind
             this.eggMaterial.uniforms.color.value = new THREE.Color(`rgb(${this.props.color[0]}, ${this.props.color[1]}, ${this.props.color[2]})`)

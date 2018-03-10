@@ -55,7 +55,6 @@ export default class Materials extends EventEmitter {
                     diffuse: {type: 'c', value: new THREE.Color()},
                     amount: {type: 'f', value: 20.0},
                     time: { value: 1.0 },
-                    resolution: { value: new THREE.Vector2() },
                     color: {value: new THREE.Color()},
                     color2: {value: new THREE.Color()},
                     frequency: {value: 0.0, type: 'f'},
@@ -63,7 +62,9 @@ export default class Materials extends EventEmitter {
                     mFresnelBias: { type: "f", value: 0.1 },
                     mFresnelPower: { type: "f", value: 2.0 },
                     mFresnelScale: { type: "f", value: 1.0 },
-                    tCube: { type: "t", value: null }
+                    tCube: { type: "t", value: null },
+                    mouseX: { type: "f", value: 0.0 },
+                    mouseY: { type: "f", value: 0.0 }
                 },
                 transparent: true,
                 vertexShader: vertexShaderEgg,
