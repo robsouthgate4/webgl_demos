@@ -44,6 +44,7 @@
   "dependencies": {
     "controlkit": "^0.1.9",
     "global": "^4.3.2",
+    "glsl-noise": "0.0.0",
     "glslify-loader": "^1.0.2",
     "ify-loader": "^1.1.0",
     "lodash": "^4.17.5",

@@ -1,6 +1,7 @@
 import EventEmitter from "eventemitter3"
 import * as THREE from "three"
 import img from './images/water.jpg'
+import bricks from './images/bricks.jpg'
 const hmr = require('../lib/three-hmr')
 const cache = hmr.cache(__filename);
 
@@ -14,6 +15,14 @@ const glslify = require('glslify')
 
 const fragmentShaderEgg = glslify('./shaders/egg.frag')
 const vertexShaderEgg = glslify('./shaders/egg.vert')
+
+function replaceThreeChunkFn(a, b) {
+    return THREE.ShaderChunk[b] + '\n';
+}
+
+function shaderParse(glsl) {
+    return glsl.replace(/\/\/\s?chunk\(\s?(\w+)\s?\);/g, replaceThreeChunkFn);
+}
 
 if (module.hot) {
     module.hot.accept(err => {
@@ -45,11 +54,13 @@ export default class Materials extends EventEmitter {
 
     static CreateEggMaterial() {
 
-        const texture = THREE.ImageUtils.loadTexture(img, undefined,);
+        const texture = THREE.ImageUtils.loadTexture(img, undefined);
 
         const material = new THREE.ShaderMaterial(
             {
-                uniforms:{
+                uniforms: THREE.UniformsUtils.merge([
+                THREE.UniformsLib.shadowMap,
+                {
                     wind: { type: 'f', value: 0.0 },
                     textureSampler: { type: "t", value: texture },
                     diffuse: {type: 'c', value: new THREE.Color()},
@@ -64,8 +75,9 @@ export default class Materials extends EventEmitter {
                     mFresnelScale: { type: "f", value: 1.0 },
                     tCube: { type: "t", value: null },
                     mouseX: { type: "f", value: 0.0 },
-                    mouseY: { type: "f", value: 0.0 }
-                },
+                    mouseY: { type: "f", value: 0.0 },
+                    lightPosition: {type: 'v3', value: new THREE.Vector3(700, 700, 700)}
+                }]),
                 transparent: true,
                 vertexShader: vertexShaderEgg,
                 fragmentShader: fragmentShaderEgg

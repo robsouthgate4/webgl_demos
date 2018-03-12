@@ -46,8 +46,11 @@ export default class RendererEgg extends EventEmitter{
         this.scene = new THREE.Scene()
         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 35000 )
 
-        // this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 )
-        // this.scene.add(this.directionalLight)
+        this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 )
+        this.scene.add(this.directionalLight)
+
+        this.pointLight = new THREE.PointLight(0xFFFFFF, 1.0, 1.0, 0.0);
+        this.scene.add(this.pointLight);
 
         this.renderer.setSize( window.innerWidth, window.innerHeight );
         document.body.appendChild( this.renderer.domElement );
@@ -81,11 +84,18 @@ export default class RendererEgg extends EventEmitter{
                 
 
                 object.traverse( (child) => {
+                    if (child.material) {
+                        child.material.side = THREE.DoubleSide;
+                    }
                     if (child instanceof THREE.Mesh) {
                         //here in child the geometry and material are available
                         this.eggMesh = new THREE.Mesh( child.geometry, this.eggMaterial);
+                        this.eggMesh.castShadow = true;
+                        this.eggMesh.receiveShadow = true;
                         //mesh.position.z = -50;
                         this.eggGroup.add(this.eggMesh);
+
+                        console.log(this.eggMesh)
                     }
                 });
 
@@ -93,9 +103,11 @@ export default class RendererEgg extends EventEmitter{
 
                 this.scene.add(this.eggGroup);
 
+                this.draw()
+
             })
 
-        this.draw()
+
 
 
 
@@ -131,7 +143,7 @@ export default class RendererEgg extends EventEmitter{
 
             time += 1;
 
-            this.eggMesh.rotation.y += 0.01;
+            //this.eggMesh.rotation.y += 0.01;
 
             this.eggMaterial.uniforms.mouseX.value = this.props.mouseX;
             this.eggMaterial.uniforms.mouseY.value = this.props.mouseY;

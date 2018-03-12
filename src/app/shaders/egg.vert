@@ -1,8 +1,12 @@
 varying vec2 vUv;
 varying vec3 vPos;
 varying vec3 vNormal;
+varying vec4 worldPosition;
+varying vec3 vWorldPosition;
+
 uniform float frequency;
 uniform float time;
+
 
 
 #pragma glslify: ease = require(glsl-easings/elastic-out)
@@ -49,19 +53,26 @@ void main() {
 
     float n = noise(vPos.xy);
 
+     vec3 offset = vec3(
+        sin(position.x * 1.0 + time / 50.) * 1.0,
+        sin(position.y * 1.0 + time / 50. + 11.512) * 1.0,
+        sin(position.z * 1.0 + time / 50. + 52.512) * 1.0
+    );
+
+    vec3 pos = position + offset;
+
+    //vNormal = normalMatrix * vec3(normal + normalize(offset) * 0.2);
+
+    // The world poisition of your vertex: NO CAMERA
+    worldPosition = modelMatrix * vec4(position, 1.0);
+
+    vWorldPosition = worldPosition.xyz;
+
     float easing = ease(frequency * 0.03);
 
-    //vec3 newPosition = position + normal * (vec3( 1.0 ) * max(0., sin(time / 150.)));
-
-
-
-    //vec3 newPosition = position * sin(n + time / 50.) * 2.;
-
-    vec3 newPosition = position;
-
-    gl_Position =   projectionMatrix *
-                    modelViewMatrix *
-                    vec4(position, 1.0);
+    gl_Position =  projectionMatrix *
+                    viewMatrix *
+                    worldPosition;
 
 
 }
