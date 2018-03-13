@@ -10,6 +10,10 @@ uniform float time;
 uniform float mouseX;
 uniform float mouseY;
 uniform bool splitEgg;
+uniform float amplitude;
+
+attribute vec3 customColor;
+attribute vec3 displacement;
 
 #pragma glslify: ease = require(glsl-easings/elastic-out)
 
@@ -80,8 +84,11 @@ void main() {
 
     pos = position * reMap(y, 0., 1., 0.8, 1.);
 
+    vec3 newPosition = position + normal * (amplitude * mouseY) * displacement;
+
     if (splitEgg) {
-        vPos = position + y + (normal * reMap(mouseY, 0., 1., 0.0, 0.5));
+        //vPos = position + normal * (amplitude * sin(time * 0.005)) * displacement * 0.2;
+        vPos = position + normal * (amplitude * mouseY) * displacement;
     } else {
         vPos = position + y;
     }
@@ -94,9 +101,13 @@ void main() {
     vWorldPosition = worldPosition.xyz;
     float easing = ease(frequency * 0.03);
 
-    gl_Position =  projectionMatrix *
-                    viewMatrix *
-                    worldPosition;
+//    gl_Position =  projectionMatrix *
+//                    viewMatrix *
+//                    worldPosition;
+
+      gl_Position =  projectionMatrix *
+                          modelViewMatrix *
+                          vec4( vPos, 1.0 );
 
 
 }

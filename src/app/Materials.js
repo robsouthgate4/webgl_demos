@@ -74,7 +74,8 @@ export default class Materials extends EventEmitter {
                     frequency: {value: 0.0, type: 'f'},
                     mouseX: { type: "f", value: 0.0 },
                     mouseY: { type: "f", value: 0.0 },
-                    lightPosition: {type: 'v3', value: new THREE.Vector3(700, 700, 700)}
+                    lightPosition: {type: 'v3', value: new THREE.Vector3(700, 700, 700)},
+                    amplitude: { type: 'f', value: 0.0 }
                 }]),
                 transparent: true,
                 shading: THREE.FlatShading,
