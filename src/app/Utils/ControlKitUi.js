@@ -15,6 +15,9 @@ export default class ControlKitUi extends EventEmitter{
                     .addSubGroup()
                     .addSlider(this.props,'wind','windRange')
                     .addCheckbox(this.props, 'brickTile')
+                    .addCheckbox(this.props, 'wave')
+                    .addCheckbox(this.props, 'splitEgg')
+                    .addCheckbox(this.props, 'transparency')
                     .addColor(this.props,'color',{colorMode:'rgb'})
                     .addColor(this.props, 'color2', {colorMode: 'rgb'})
 

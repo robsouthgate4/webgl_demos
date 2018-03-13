@@ -74,36 +74,31 @@ export default class RendererEgg extends EventEmitter{
 
         
 
-        this.eggMaterial = Materials.CreateEggMaterial();
+        this.eggMaterial = Materials.CreateEggMaterial()
 
         this.eggGroup = new THREE.Object3D()
-        this.eggMesh =  new THREE.Mesh();
+        this.eggMesh =  new THREE.Mesh()
 
 
         this.loadEgg()
             .then((object) => {
-
-                
-
                 object.traverse( (child) => {
                     if (child.material) {
-                        child.material.side = THREE.DoubleSide;
+                        child.material.side = THREE.DoubleSide
                     }
                     if (child instanceof THREE.Mesh) {
+                        child.geometry.uvsNeedUpdate = true
                         //here in child the geometry and material are available
-                        this.eggMesh = new THREE.Mesh( child.geometry, this.eggMaterial);
-                        this.eggMesh.castShadow = true;
-                        this.eggMesh.receiveShadow = true;
-                        //mesh.position.z = -50;
-                        this.eggGroup.add(this.eggMesh);
-
-                        console.log(this.eggMesh)
+                        this.eggMesh = new THREE.Mesh( child.geometry, this.eggMaterial)
+                        this.eggMesh.castShadow = true
+                        this.eggMesh.receiveShadow = true
+                        this.eggGroup.add(this.eggMesh)
                     }
                 });
 
                 this.eggGroup.position.z = 0;
 
-                this.scene.add(this.eggGroup);
+                this.scene.add(this.eggGroup)
 
                 this.draw()
 
@@ -131,7 +126,7 @@ export default class RendererEgg extends EventEmitter{
 
     draw() {
 
-        let time = 0;
+        let time = 0
 
 
         const animate = () => {
@@ -140,13 +135,16 @@ export default class RendererEgg extends EventEmitter{
 
             time += 1;
 
-            this.eggMesh.rotation.y += 0.02;
+            this.eggMesh.rotation.y += 0.002
 
-            this.eggMaterial.uniforms.mouseX.value = this.props.mouseX;
-            this.eggMaterial.uniforms.mouseY.value = this.props.mouseY;
-            this.eggMaterial.uniforms.time.value = time;
+            this.eggMaterial.uniforms.mouseX.value = this.props.mouseX
+            this.eggMaterial.uniforms.mouseY.value = this.props.mouseY
+            this.eggMaterial.uniforms.time.value = time
             this.eggMaterial.uniforms.wind.value = this.props.wind
             this.eggMaterial.uniforms.brickTile.value = this.props.brickTile
+            this.eggMaterial.uniforms.splitEgg.value = this.props.splitEgg
+            this.eggMaterial.uniforms.transparency.value = this.props.transparency
+            this.eggMaterial.uniforms.wave.value = this.props.wave
             this.eggMaterial.uniforms.color.value = new THREE.Color(`rgb(${this.props.color[0]}, ${this.props.color[1]}, ${this.props.color[2]})`)
             this.eggMaterial.uniforms.color2.value = new THREE.Color(`rgb(${this.props.color2[0]}, ${this.props.color2[1]}, ${this.props.color2[2]})`)
 

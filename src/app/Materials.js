@@ -63,7 +63,10 @@ export default class Materials extends EventEmitter {
                 {
                     wind: { type: 'f', value: 0.0 },
                     textureSampler: { type: "t", value: texture },
-                    brickTile: { type: "b", value: true },
+                    brickTile: { type: "b", value: false },
+                    wave: { type: "b", value: false },
+                    splitEgg: { type: "b", value: false },
+                    transparency: { type: "b", value: true },
                     amount: {type: 'f', value: 20.0},
                     time: { value: 1.0 },
                     color: {value: new THREE.Color()},
@@ -74,6 +77,7 @@ export default class Materials extends EventEmitter {
                     lightPosition: {type: 'v3', value: new THREE.Vector3(700, 700, 700)}
                 }]),
                 transparent: true,
+                shading: THREE.FlatShading,
                 vertexShader: vertexShaderEgg,
                 fragmentShader: fragmentShaderEgg
             }

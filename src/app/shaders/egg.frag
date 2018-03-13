@@ -1,16 +1,16 @@
-
-
 uniform vec3 color;
 uniform vec3 color2;
 uniform sampler2D textureSampler;
 uniform float time;
 uniform vec2 resolution;
 uniform bool brickTile;
-
-varying vec3 vWorldPosition;
+uniform bool transparency;
+uniform bool wave;
+uniform float mouseY;
+uniform float mouseX;
 uniform vec3 lightPosition;
 
-
+varying vec3 vWorldPosition;
 varying vec2 vUv;
 varying vec3 vNormal;
 varying float distFromCenter;
@@ -18,13 +18,10 @@ varying vec3 vPos;
 varying vec3 pos;
 varying vec4 worldPosition;
 
-uniform float mouseY;
-uniform float mouseX;
-
 #pragma glslify: cnoise3 = require("glsl-noise/classic/3d")
 #pragma glslify: snoise3 = require("glsl-noise/simplex/3d")
-
-#pragma glslify: ease = require(glsl-easings/sine-out)
+#pragma glslify: ease = require("glsl-easings/sine-out")
+#pragma glslify: hex =  require("./lib/vop_HexTileGen")
 
 // 2D Random
 float random (in vec2 st) {
@@ -106,30 +103,36 @@ void main() {
     float n = noise(newPos.xy);
     float n3 = cnoise3(cnoisePos);
 
-    //newPos *= (mouse.y * 2.0);
-
     if (brickTile) {
         newPos.xy = brickTiling(newPos.xy, 2.0);
     }
 
-//    newPos = vec3(
-//        max(0.0, cos(newPos.x * 5.)),
-//        max(0.0, cos(newPos.y * 5.)),
-//        max(0.0, cos(newPos.z * 5.))
-//    );
+    if (wave) {
+        newPos = vec3(
+            max(0.0, cos(newPos.x * 5.)),
+            max(0.0, cos(newPos.y * 5.)),
+            max(0.0, cos(newPos.z * 5.))
+        );
+    }
 
     vec3 colorInBetween = mix(color1, color2, newPos.y * 1.8);
 
-    colorInBetween += smoothstep(0.02, 1.0, snoise3(newPos.xyz * 8. * reMap(mouse.y, 0.0, 1.0, 0.1, 1.0)) * 80.);
+    vec2 nHex = hex(newPos.x, newPos.y, mouseX * 5.0, mouseX * 5.0, mouseY, mouseY);
 
-    //colorInBetween += vec3(circle(newPos.xy * 2.0, mouse.x));
+    colorInBetween += smoothstep(0.02, 1.0, snoise3(newPos.xyz * 8. * reMap(mouse.y, 0.0, 1.0, 0.1, 1.0)) * 80.);
 
     vec3 image = texture2D(textureSampler, newPos.xy).rgb;
 
-    //vec3 color = color1 + cos(newPos.y * 100.);
+    float transparencyValue = 1.0;
 
-    float transparency = reMap(mouse.x, 0.0, 1.0, 0.8, 1.0);
+    if (transparency) {
+        transparencyValue =  0.7;
+    } else {
+        transparencyValue =  1.0;
+    }
 
-    gl_FragColor = vec4(colorInBetween * 0.9, 0.7);
+
+
+    gl_FragColor = vec4(colorInBetween * 0.9, transparencyValue);
 
 }

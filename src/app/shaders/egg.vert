@@ -7,8 +7,9 @@ varying vec3 pos;
 
 uniform float frequency;
 uniform float time;
-
-
+uniform float mouseX;
+uniform float mouseY;
+uniform bool splitEgg;
 
 #pragma glslify: ease = require(glsl-easings/elastic-out)
 
@@ -79,7 +80,11 @@ void main() {
 
     pos = position * reMap(y, 0., 1., 0.8, 1.);
 
-    vPos = position + y;
+    if (splitEgg) {
+        vPos = position + y + (normal * reMap(mouseY, 0., 1., 0.0, 0.5));
+    } else {
+        vPos = position + y;
+    }
 
     vNormal = normalMatrix * vec3(normal + normalize(offset) * 0.2);
 
@@ -87,9 +92,6 @@ void main() {
     worldPosition = modelMatrix * vec4(vPos, 1.0);
 
     vWorldPosition = worldPosition.xyz;
-
-
-
     float easing = ease(frequency * 0.03);
 
     gl_Position =  projectionMatrix *
