@@ -131,8 +131,6 @@ void main() {
         transparencyValue =  1.0;
     }
 
-
-
     gl_FragColor = vec4(colorInBetween * 0.9, transparencyValue);
 
 }
