@@ -63,17 +63,12 @@ export default class Materials extends EventEmitter {
                 {
                     wind: { type: 'f', value: 0.0 },
                     textureSampler: { type: "t", value: texture },
-                    diffuse: {type: 'c', value: new THREE.Color()},
+                    brickTile: { type: "b", value: true },
                     amount: {type: 'f', value: 20.0},
                     time: { value: 1.0 },
                     color: {value: new THREE.Color()},
                     color2: {value: new THREE.Color()},
                     frequency: {value: 0.0, type: 'f'},
-                    mRefractionRatio: { type: "f", value: 1.02 },
-                    mFresnelBias: { type: "f", value: 0.1 },
-                    mFresnelPower: { type: "f", value: 2.0 },
-                    mFresnelScale: { type: "f", value: 1.0 },
-                    tCube: { type: "t", value: null },
                     mouseX: { type: "f", value: 0.0 },
                     mouseY: { type: "f", value: 0.0 },
                     lightPosition: {type: 'v3', value: new THREE.Vector3(700, 700, 700)}

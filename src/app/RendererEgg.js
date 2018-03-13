@@ -5,6 +5,8 @@ const TrackballControls = require('three-trackballcontrols')
 const OBJLoader = require('three-obj-loader');
 OBJLoader(THREE);
 
+import {TweenMax, Power2} from "gsap";
+
 import eggObj from '../objects/egg.obj'
 
 import Geometries from "./Geometries"
@@ -107,10 +109,6 @@ export default class RendererEgg extends EventEmitter{
 
             })
 
-
-
-
-
     }
 
     update() {
@@ -135,7 +133,6 @@ export default class RendererEgg extends EventEmitter{
 
         let time = 0;
 
-        console.log(this.props)
 
         const animate = () => {
 
@@ -143,15 +140,15 @@ export default class RendererEgg extends EventEmitter{
 
             time += 1;
 
-            //this.eggMesh.rotation.y += 0.01;
+            this.eggMesh.rotation.y += 0.02;
 
             this.eggMaterial.uniforms.mouseX.value = this.props.mouseX;
             this.eggMaterial.uniforms.mouseY.value = this.props.mouseY;
             this.eggMaterial.uniforms.time.value = time;
             this.eggMaterial.uniforms.wind.value = this.props.wind
+            this.eggMaterial.uniforms.brickTile.value = this.props.brickTile
             this.eggMaterial.uniforms.color.value = new THREE.Color(`rgb(${this.props.color[0]}, ${this.props.color[1]}, ${this.props.color[2]})`)
             this.eggMaterial.uniforms.color2.value = new THREE.Color(`rgb(${this.props.color2[0]}, ${this.props.color2[1]}, ${this.props.color2[2]})`)
-            this.eggMaterial.uniforms.diffuse.value = new THREE.Color(`rgb(${this.props.color[0]}, ${this.props.color[1]}, ${this.props.color[2]})`)
 
 
             requestAnimationFrame(animate)
