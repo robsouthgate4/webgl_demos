@@ -13,7 +13,6 @@ export default class ControlKitUi extends EventEmitter{
             .addPanel({label: 'Settings', align: 'right'})
                 .addGroup()
                     .addSubGroup()
-                    .addSlider(this.props,'wind','windRange')
                     .addCheckbox(this.props, 'brickTile')
                     .addCheckbox(this.props, 'wave')
                     .addCheckbox(this.props, 'splitEgg')

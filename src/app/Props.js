@@ -4,7 +4,7 @@ export default class Props extends EventEmitter{
     constructor() {
         super()
         this.orbitControls =false
-        this.color = [236,212,255]
+        this.color = [189,111,252]
         this.color2 = [204,238,255]
         this.rotationSpeed = 0.005
         this.wind = 11
