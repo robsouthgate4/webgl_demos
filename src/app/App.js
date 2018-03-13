@@ -29,7 +29,6 @@ class App extends EventEmitter {
 
     mapCoords(e) {
 
-        console.log(e)
         const numX = e.clientX;
         const numY = e.clientY;
         const x = Helpers.reMap(numX, 0, window.innerWidth, 0, 1);
@@ -44,6 +43,9 @@ class App extends EventEmitter {
 
     onMouseDown(e) {
         window.onmousemove = (e) => {
+            this.mapCoords(e);
+        }
+        window.ontouchmove = (e) => {
             this.mapCoords(e);
         }
     }
