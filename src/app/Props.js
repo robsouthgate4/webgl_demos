@@ -3,16 +3,18 @@ import EventEmitter from 'eventemitter3'
 export default class Props extends EventEmitter{
     constructor() {
         super()
-        this.color = [2, 224, 43]
+        this.orbitControls =false
+        this.color = [189,111,252]
+        this.color2 = [204,238,255]
         this.rotationSpeed = 0.005
-        this.wind = 0
-        this.speed = 0
-        this.speedRange = [0.0, 20.0]
-        this.windRange = [0.0, 18.0]
+        this.wind = 11
+        this.wave = false
         this.valueA = 0.25
         this.valueB = 1.25
-        this.func = (x,y) => {
-            return Math.sin(x * this.valueA) * Math.cos(y * this.valueB);
-        }
+        this.mouseX = 0
+        this.mouseY = 0
+        this.brickTile = false
+        this.splitEgg = false
+        this.transparency = true
     }
 }

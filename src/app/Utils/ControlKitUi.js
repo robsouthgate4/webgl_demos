@@ -13,10 +13,12 @@ export default class ControlKitUi extends EventEmitter{
             .addPanel({label: 'Settings', align: 'right'})
                 .addGroup()
                     .addSubGroup()
-                    .addSlider(this.props,'wind','windRange')
-                    .addSlider(this.props,'speed','speedRange')
+                    .addCheckbox(this.props, 'brickTile')
+                    .addCheckbox(this.props, 'wave')
+                    .addCheckbox(this.props, 'splitEgg')
+                    .addCheckbox(this.props, 'transparency')
                     .addColor(this.props,'color',{colorMode:'rgb'})
-                        .addFunctionPlotter(this.props,'func');
+                    .addColor(this.props, 'color2', {colorMode: 'rgb'})
 
     }
 
