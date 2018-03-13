@@ -3,7 +3,7 @@ import EventEmitter from 'eventemitter3'
 export default class Props extends EventEmitter{
     constructor() {
         super()
-        this.orbitControls =false
+        this.orbitControls = false
         this.color = [189,111,252]
         this.color2 = [204,238,255]
         this.rotationSpeed = 0.005
